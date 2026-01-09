@@ -2,6 +2,7 @@ FROM node:20
 EXPOSE 8080
 # we have to specify mysql container ip address in DB_HOST but mysql container is in docker bridge network created by docker now it is docker responsibility to provide mysql container ip address as ip address is not permanent we have to make use of route53 records but in docker route53 we cannot use, hence we have to name the mysql container and use the name as below, to name a container docker run -d --name mysql mysql:v1 if container exists remove the container and name it.
 # remove step for container docker ps and docker rm -f container-id(force-remove)
+# containers inside the docker default bridge network cannot able to communicate each other hence we have to create our own network to establish communication between containers
 ENV DB_HOST="mysql"
 # creating dir /opt/server same like /app in our vm we use RUN instruction to create dir
 RUN mkdir /opt/server 
