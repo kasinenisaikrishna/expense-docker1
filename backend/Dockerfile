@@ -1,13 +1,16 @@
 FROM node:20.18.0-alpine3.20
 EXPOSE 8080
 ENV DB_HOST="mysql"
+# adding expense user and group to restrict the root access to other users
 RUN addgroup -S expense && adduser -S expense -G expense
 RUN mkdir /opt/server
+# changing the ownership to expense user
 RUN chown -R expense:expense /opt/server
 WORKDIR /opt/server
 COPY package.json .
 COPY *.js .
 RUN npm install
+# removing root access to the user expense
 USER expense
 CMD [ "node", "index.js" ]
 
