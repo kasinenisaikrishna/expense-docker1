@@ -3,7 +3,7 @@ FROM mysql:8.0
 ENV MYSQL_ROOT_PASSWORD=ExpenseApp@1 
 RUN groupadd expense && \
     useradd -g expense expense && \
-    chown -R expense:expense /var/lib/mysql /var/lib/mysqld /docker-entrypoint-initdb.d
+    chown -R expense:expense /var/lib/mysql /var/run/mysqld /docker-entrypoint-initdb.d
 #https://hub.docker.com/_/mysql explains about Initializing a fresh instance we can place .sql files in /docker-entrypoint-initdb.d location for container to execute while container started
 ADD scripts/*.sql /docker-entrypoint-initdb.d 
 USER expense
